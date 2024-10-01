@@ -1,10 +1,10 @@
-# importation du module pygame
+# Importation du module pygame
 import pygame
 import random
 import math
 
 
-#definition de variables globales
+# Définition de variables globales
 Noir = (0,0,0)
 Blanc = (255,255,255)
 Gris = (128,128,128)
@@ -126,25 +126,36 @@ def afficherResultat(f:pygame.Surface,res,ligne):
     pygame.display.update()
 
 # Fonction qui affiche le résultat de la partie à la fin de celle-ci
-def showEndGame(f, isWin):
+def showEndGame(f, isWin, nbTry):
     width = 720
     height = 360
 
     left = (1280 // 2) - (width // 2)
     top = (720 // 2) - (height // 2)
+    
+    nbTry = nbTry-1
 
     pygame.draw.rect(f,Orange,[left, top, width, height])
 
     text1 = "GG"
     text2 = "FF"
+    text3 = "Nombre d'essais : " + str(nbTry)
 
-    myfont = pygame.font.SysFont("monospace", 70)
+    myfont1 = pygame.font.SysFont("monospace", 70)
+    myfont2 = pygame.font.SysFont("monospace", 20)
 
-    label = myfont.render(text1 if isWin else text2, 1, Noir)
+    label1 = myfont1.render(text1 if isWin else text2, 1, Noir)
 
-    left = (1280 // 2) - label.get_size()[0] // 2
-    top = (720 // 2) - label.get_size()[1] // 2
+    left = (1280 // 2) - label1.get_size()[0] // 2
+    top = (720 // 2) - label1.get_size()[1] // 2
+    
+    label2 = myfont2.render(text3, 1, Noir)
 
-    f.blit(label, (left, top))
+    leftTry = (1280 // 2) - (2 * label1.get_size()[0]) + 40
+    topTry = (720 // 2) + label1.get_size()[1] // 2
 
+    f.blit(label1, (left, top))
+    f.blit(label2, (leftTry, topTry))
+    
     pygame.display.update()
+   

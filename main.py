@@ -34,7 +34,7 @@ while running:
     if(state[0] == True):
         # Et que le resultat n'a pas encore été affiché
         if(not resultIsShow):
-            mm.showEndGame(screen, state[1]) # Afficher le message de fin de partie
+            mm.showEndGame(screen, state[1], currentLine) # Afficher le message de fin de partie
             mm.afficherSecret(screen, secret) # Afficher la combinaison secrète
             resultIsShow = True # Marquer le résultat comme affiché
         
