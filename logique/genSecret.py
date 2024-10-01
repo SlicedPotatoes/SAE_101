@@ -1,6 +1,11 @@
 from mm import TabCouleur
 from random import *
 
+"""
+Fonction qui génère la combinaison secrète
+
+Elle pioche parmi les couleurs définies dans un tableau en générant un nombre aléatoire compris dans les bornes de celui-ci.
+"""
 def genSecret():
     arr = []
 

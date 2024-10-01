@@ -24,6 +24,7 @@ def afficherSecret(laFenetre:pygame.Surface,leSecret:list)->None:
         pygame.draw.circle(laFenetre,Noir,[320+40*i, 20],15,1)
     pygame.display.update()
 
+# Légère modification dans cette fonction pour être cohérente avec la logique implémentée du jeu
 def afficherCombinaison(laFenetre:pygame.Surface,laCombinaison:list,ligne:int)->None:
     
     for i in range(5):
@@ -70,6 +71,7 @@ def afficherChoixCouleur(f:pygame.Surface)->None:
     pygame.draw.circle(f,Noir,[75,80+40*9],15,1)
     pygame.display.update()
 
+# Distance Euclidienne entre deux points
 def distance(a:list,b:list)->float:
     return math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2)
 
@@ -107,7 +109,7 @@ def construireProposition(f:pygame.Surface,ligne:int)->list:
     return proposition
 
 
-            
+# Légère modification dans cette fonction pour être cohérente avec la logique implémentée du jeu
 def afficherResultat(f:pygame.Surface,res,ligne):
     x = 520
     y = 20+40*(16 - ligne)
@@ -122,7 +124,8 @@ def afficherResultat(f:pygame.Surface,res,ligne):
         i = i + 1
         j = j + 1
     pygame.display.update()
-        
+
+# Fonction qui affiche le résultat de la partie à la fin de celle-ci
 def showEndGame(f, isWin):
     width = 720
     height = 360
