@@ -1,10 +1,10 @@
-# Importation du module pygame
+# importation du module pygame
 import pygame
 import random
 import math
 
 
-# Définition de variables globales
+#definition de variables globales
 Noir = (0,0,0)
 Blanc = (255,255,255)
 Gris = (128,128,128)
@@ -16,6 +16,8 @@ Rose = (255,0,127)
 
 Marron = (160,60,0)
 
+
+
 TabCouleur  = [Noir,Blanc,Gris,Bleu,Rouge,Vert,Orange,Rose]
 
 def afficherSecret(laFenetre:pygame.Surface,leSecret:list)->None:
@@ -24,15 +26,14 @@ def afficherSecret(laFenetre:pygame.Surface,leSecret:list)->None:
         pygame.draw.circle(laFenetre,Noir,[320+40*i, 20],15,1)
     pygame.display.update()
 
-# Légère modification dans cette fonction pour être cohérente avec la logique implémentée du jeu
-def afficherCombinaison(laFenetre:pygame.Surface,laCombinaison:list,ligne:int)->None:
+def afficherCombinaison(laFenetre:pygame.Surface,laCombinaison:list,numLigne:int)->None:
     
     for i in range(5):
-        pygame.draw.circle(laFenetre,Marron,[320+40*i,40+40*(16 - ligne)],15)
+        pygame.draw.circle(laFenetre,Marron,[320+40*i,40+40*(numLigne-1)],15)
 
     for i in range(len(laCombinaison)):
-        pygame.draw.circle(laFenetre,laCombinaison[i],[320+40*i,40+40* (16 - ligne)],15)
-        pygame.draw.circle(laFenetre,Noir,[320+40*i, 40+40* (16 - ligne)],15,1)
+        pygame.draw.circle(laFenetre,laCombinaison[i],[320+40*i,40+40* (numLigne-1)],15)
+        pygame.draw.circle(laFenetre,Noir,[320+40*i, 40+40* (numLigne-1)],15,1)
         
     pygame.display.update()
 
@@ -71,9 +72,8 @@ def afficherChoixCouleur(f:pygame.Surface)->None:
     pygame.draw.circle(f,Noir,[75,80+40*9],15,1)
     pygame.display.update()
 
-# Distance Euclidienne entre deux points
 def distance(a:list,b:list)->float:
-    return math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2)
+    return math.sqrt((a[0]-b[0])**2+(a[1]-b[1])**2)
 
 def getChoixCouleur()->None:
     while True:
@@ -109,10 +109,10 @@ def construireProposition(f:pygame.Surface,ligne:int)->list:
     return proposition
 
 
-# Légère modification dans cette fonction pour être cohérente avec la logique implémentée du jeu
+            
 def afficherResultat(f:pygame.Surface,res,ligne):
     x = 520
-    y = 20+40*(16 - ligne)
+    y = 20+40*(ligne-1)
     centres = [(x+6,y+6),(x+6,y+34),(x+20,y+20),(x+34,y+6),(x+34,y+34)]
     i = 0
     while i<res[0]:
@@ -124,38 +124,4 @@ def afficherResultat(f:pygame.Surface,res,ligne):
         i = i + 1
         j = j + 1
     pygame.display.update()
-
-# Fonction qui affiche le résultat de la partie à la fin de celle-ci
-def showEndGame(f, isWin, nbTry):
-    width = 720
-    height = 360
-
-    left = (1280 // 2) - (width // 2)
-    top = (720 // 2) - (height // 2)
-    
-    nbTry = nbTry-1
-
-    pygame.draw.rect(f,Orange,[left, top, width, height])
-
-    text1 = "GG"
-    text2 = "FF"
-    text3 = "Nombre d'essais : " + str(nbTry)
-
-    myfont1 = pygame.font.SysFont("monospace", 70)
-    myfont2 = pygame.font.SysFont("monospace", 20)
-
-    label1 = myfont1.render(text1 if isWin else text2, 1, Noir)
-
-    left = (1280 // 2) - label1.get_size()[0] // 2
-    top = (720 // 2) - label1.get_size()[1] // 2
-    
-    label2 = myfont2.render(text3, 1, Noir)
-
-    leftTry = (1280 // 2) - (2 * label1.get_size()[0]) + 40
-    topTry = (720 // 2) + label1.get_size()[1] // 2
-
-    f.blit(label1, (left, top))
-    f.blit(label2, (leftTry, topTry))
-    
-    pygame.display.update()
-   
+        

@@ -1,7 +1,8 @@
 import pygame
-from logique.genSecret import genSecret
-from logique.feedback import feedback
-from logique.gameState import gameState
+from genSecret import genSecret
+from feedback import feedback
+from gameState import gameState
+from showWinner import showEndGame
 import mm
 
 # pygame setup
@@ -12,7 +13,7 @@ running = True
 
 # game setup
 secret = genSecret()
-currentLine = 1
+currentLine = 0
 line = [(0,0,0), (0,0,0), (0,0,0), (0,0,0), (0,0,0)]
 resultIsShow = False
 
@@ -34,16 +35,16 @@ while running:
     if(state[0] == True):
         # Et que le resultat n'a pas encore été affiché
         if(not resultIsShow):
-            mm.showEndGame(screen, state[1], currentLine) # Afficher le message de fin de partie
+            showEndGame(screen, state[1], currentLine + 1) # Afficher le message de fin de partie
             mm.afficherSecret(screen, secret) # Afficher la combinaison secrète
             resultIsShow = True # Marquer le résultat comme affiché
         
         continue # Passer à l'it&ration suivante (bloque le reste du code)
 
     # Construire la proposition courante du joueur
-    line = mm.construireProposition(screen, currentLine)
+    line = mm.construireProposition(screen, 16 - currentLine)
     # Afficher le résultat (feedback) basé sur la comparaison entre "secret" et "line"
-    mm.afficherResultat(screen, feedback(secret, line), currentLine)
+    mm.afficherResultat(screen, feedback(secret, line), 16 - currentLine)
 
     # Passer a la ligne suivante
     currentLine += 1

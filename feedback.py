@@ -40,9 +40,12 @@ def feedback(secret, comb):
 
     return (wellPlaced, goodColor)
 
+
 if (__name__ == "__main__"):
     def printResult(secret, comb, result):
         print("feedback(", secret, ",", comb, ") Attendue:", result, " Retourné:", feedback(secret, comb))
 
     # Jeux de test
     printResult([1, 2, 3, 4, 4], [4, 4, 4, 1, 2], (0, 4))
+    printResult([1, 2, 3, 4, 4], [1, 2, 3, 4, 4], (5, 0))
+    printResult([1, 2, 3, 4, 4], [4, 4, 3, 2, 1], (1, 4))

@@ -13,3 +13,10 @@ def genSecret():
         arr.append(TabCouleur[randint(0, len(TabCouleur) - 1)])
     
     return arr
+
+def hash(list):
+    return (list[0], list[1], list[2], list[3], list[4])
+
+if(__name__ == "__main__"):
+    for i in range(10):
+        print(genSecret())
