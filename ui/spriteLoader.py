@@ -2,7 +2,7 @@ import pygame
 
 class sprite_collection:
   def __init__(self) -> None:
-    root = "V2\\sprite\\"
+    root = "sprite\\"
     hashmap = {
       'sprite_case_color': 'case_color.png',
       
@@ -14,9 +14,23 @@ class sprite_collection:
       'sprite_color_green': 'color_green.png',
       'sprite_color_orange': 'color_orange.png',
       'sprite_color_pink': 'color_pink.png',
+
+      'sprite_button_play': 'button_play.png',
+      'sprite_button_play_hover': 'button_play_hover.png',
     }
 
     self.s = {}
-
     for s in hashmap.items():
       self.s[s[0]] = pygame.image.load(root + s[1])
+
+    i = 1
+
+    self.backgroundMenu = []
+
+    while(i <= 54):
+      numStr = str(i)
+      numStr = '0' * (2 - len(numStr)) + numStr
+
+      i += 1
+
+      self.backgroundMenu.append(pygame.image.load(root + "background_menu\\frame-" + numStr + ".png"))
