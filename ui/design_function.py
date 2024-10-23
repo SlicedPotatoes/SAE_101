@@ -51,6 +51,14 @@ def gameScreen(gameState:gs.gameState):
   showSecret(gameState.screen, gameState.sc, gameState.colors, gameState.secret)
   showProposal(gameState)
 
+  i = 0
+
+  while(i < len(gameState.lines)):
+    if(len(gameState.lines[i]) == 5):
+      showFeedback(gameState.screen, 16 - i, gameState.feedback(i))
+    
+    i += 1
+
 """
 Sous probleme des fonction d'affichage des différents écrants
 """

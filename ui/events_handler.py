@@ -32,20 +32,9 @@ def gameScreenClick(gameState:gs.gameState):
 
   if distance(pos, [75, 80 + 40 * 9]) < 15:
     if(len(gameState.lines[-1]) > 0):
-      #col = len(gameState.line) - 1
-      #row = 16 - gameState.currentLine - 2
-      #df.removeColor(gameState.screen, gameState.sc, row, col)
-
       del gameState.lines[-1][-1]
-
-      
 
   if(len(gameState.lines[-1]) < 5):
     for i in range(len(gameState.colors)) :
       if distance(pos, [75, 80 + 40 * i]) < 15:
         gameState.lines[-1].append(i)
-
-        #col = len(gameState.lines[-1]) - 1
-        #row = 16 - len(gameState.lines) - 1
-        #df.drawColor(gameState.screen, gameState.sc, gameState.colors, i, row, col)
-        

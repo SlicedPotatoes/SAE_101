@@ -28,10 +28,6 @@ gameState = gs.gameState(colors, sprite_collection)
 
 # Main loop
 while running:
-  if(len(gameState.lines[-1]) == 5):
-    res = gameState.feedback()
-    df.showFeedback(gameState.screen, 16 - gameState.currentLine, res)
-
   gameState.update()
   
   for event in pygame.event.get():

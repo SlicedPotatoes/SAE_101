@@ -3,24 +3,23 @@ from random import *
 
 class gameState:
   def __init__(self, colors, sc):
-    # Données relative a l'affichage
+    # Données relatives a l'affichage
     self.currentScreen = 'main_menu'
-    self.isStaticElementsDisplayed = False
     self.screen = pygame.display.set_mode((1280, 720))
-    self.isLineResultDisplayed = False
     self.currentBackgroundIndex = 0
 
-    # Données static relative au jeu
+    # Données statiques relatives au jeu
     self.colors = colors
     self.sc = sc
 
-    # Données relative au jeu
+    # Données relatives au jeu
     self.isGameEnd = False
     self.win = False
     self.secret = self.genSecret()
     self.currentLine = 0
     self.lines = [[]]
     
+  # Méthode pour générer le secret
   def genSecret(self):
     arr = []
 
@@ -29,7 +28,8 @@ class gameState:
 
     return arr
 
-  def feedback(self):
+  # Méthode de feedback pour une proposition
+  def feedback(self, row):
     i = 0
 
     wellPlaced = 0 # Compteur pour les couleurs bien placées
@@ -40,7 +40,7 @@ class gameState:
     # Parcourt les deux listes (secret et comb) pour comparer les couleurs
     while(i < len(self.secret)):
         secretColor = self.secret[i] # Couleur actuelle de la combinaison secrète
-        combColor = self.lines[-1][i]     # Couleur actuelle de la tentative
+        combColor = self.lines[row][i]     # Couleur actuelle de la tentative
 
         # Si les couleurs sont identiques, elles sont bien placées
         if(secretColor == combColor):
@@ -66,6 +66,7 @@ class gameState:
 
     return (wellPlaced, goodColor)
 
+  # Méthode éxécutée à chaque frame pour mettre à jour gameState
   def update(self):
     # Si le nombre d'essais est supérieur ou égal à 15, le jeu est fini par une défaite
     if(self.currentLine >= 15):
