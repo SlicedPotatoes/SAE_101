@@ -1,10 +1,11 @@
 import pygame
 import gameState as gs
-import math
+import utils
 import ui.design_function as df
 
-def distance(a:list,b:list)->float:
-    return math.sqrt((a[0]-b[0])**2+(a[1]-b[1])**2)
+# Fonction qui retourne vrai dans le cas ou un click de la souris ce trouve dans la hitbox d'un rectangle
+def clickRect(pos, hitbox):
+  return pos[0] >= hitbox[0] and pos[0] <= hitbox[1] and pos[1] >= hitbox[2] and pos[1] <= hitbox[3]
 
 # Gestion des clicks en fonction de l'écran actuellement afficher
 def mouse_click(gameState: gs.gameState):
@@ -13,28 +14,44 @@ def mouse_click(gameState: gs.gameState):
   elif gameState.currentScreen == 'game_screen':
     gameScreenClick(gameState)
   elif gameState.currentScreen == 'end_screen':
-    pass
+    gameEndClick(gameState)
   else:
     print("Problème avec currentScreen:", gameState.currentScreen)
 
+# Gestion des clicks sur l'ecran principal
 def mainMenuClick(gameState:gs.gameState):
   pos = pygame.mouse.get_pos()
 
-  play_btn_hitbox = (df.btn_play_center[0] - (df.btn_play_size[0] // 2), df.btn_play_center[0] + (df.btn_play_size[0] // 2), df.btn_play_center[1] - (df.btn_play_size[1] // 2) - 1, df.btn_play_center[1] + (df.btn_play_size[1] // 2) + 1)
+  play_btn_hitbox = utils.getHitboxRect(df.btn_play_center, df.btn_play_size)
 
   # Click btn jouer
-  if(pos[0] >= play_btn_hitbox[0] and pos[0] <= play_btn_hitbox[1] and pos[1] >= play_btn_hitbox[2] and pos[1] <= play_btn_hitbox[3]):
-    gameState.currentScreen = 'game_screen'
-    gameState.isStaticElementsDisplayed = False
+  if(clickRect(pos, play_btn_hitbox)):
+    gameState.reset('game_screen')
 
+# Gestion des clicks dans le jeu
 def gameScreenClick(gameState:gs.gameState):
   pos = pygame.mouse.get_pos()
+  return_btn_hitbox = utils.getHitboxRect(df.btn_return_center, df.btn_return_size)
 
-  if distance(pos, [75, 80 + 40 * 9]) < 15:
+  # Click btn retour
+  if(clickRect(pos, return_btn_hitbox)):
+    gameState.reset('main_menu')
+
+  # Click enlever couleur du plateau
+  elif utils.distance(pos, [df.color_picker_offset_x + df.color_radius, df.color_picker_offset_y + df.color_radius + 40 * 9]) < df.color_radius:
     if(len(gameState.lines[-1]) > 0):
       del gameState.lines[-1][-1]
 
-  if(len(gameState.lines[-1]) < 5):
+  # Click ajouter couleur plateau
+  elif(len(gameState.lines[-1]) < 5 and len(gameState.lines) <= 15):
     for i in range(len(gameState.colors)) :
-      if distance(pos, [75, 80 + 40 * i]) < 15:
+      if utils.distance(pos, [df.color_picker_offset_x + df.color_radius, df.color_picker_offset_y + df.color_radius + 40 * i]) < df.color_radius:
         gameState.lines[-1].append(i)
+
+# Gestion des clicks de la modal de fin
+def gameEndClick(gameState:gs.gameState):
+  pos = pygame.mouse.get_pos()
+  restart_btn_hitbox = utils.getHitboxRect(df.btn_restart_center, df.btn_restart_size)
+
+  if(clickRect(pos, restart_btn_hitbox)):
+    gameState.reset('game_screen')

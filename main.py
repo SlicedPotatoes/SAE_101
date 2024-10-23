@@ -5,11 +5,12 @@ import ui.design_function as df
 import gameState as gs
 
 # pygame setup
+sprite_collection = sl.sprite_collection()
+
 pygame.init()
 pygame.display.set_caption('Mastermind')
-#pygame.display.set_icon(Icon_name)
+#pygame.display.set_icon(sprite_collection.s['icon'])
 
-sprite_collection = sl.sprite_collection()
 clock = pygame.time.Clock()
 running = True
 
@@ -41,11 +42,13 @@ while running:
   if gameState.currentScreen == 'main_menu':
     df.mainMenu(gameState)
   elif gameState.currentScreen == 'game_screen':
-    df.gameScreen(gameState)
+    df.gameScreen(gameState, False)
   elif gameState.currentScreen == 'end_screen':
-    pass
+    df.gameScreen(gameState, True)
+    df.endGameModal(gameState)
   else:
-    pass
+    print("Error: Screen not found")
+    gameState.reset('main_menu')
 
   pygame.display.flip()
   clock.tick(10)

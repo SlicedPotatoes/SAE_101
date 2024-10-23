@@ -1,4 +1,5 @@
 import pygame
+
 from random import *
 
 class gameState:
@@ -16,9 +17,16 @@ class gameState:
     self.isGameEnd = False
     self.win = False
     self.secret = self.genSecret()
-    self.currentLine = 0
     self.lines = [[]]
-    
+  
+  # Méthode pour reset l'état du jeu
+  def reset(self, screen_name):
+     self.currentScreen = screen_name
+     self.isGameEnd = False
+     self.win = False
+     self.secret = self.genSecret()
+     self.lines = [[]]
+
   # Méthode pour générer le secret
   def genSecret(self):
     arr = []
@@ -69,7 +77,7 @@ class gameState:
   # Méthode éxécutée à chaque frame pour mettre à jour gameState
   def update(self):
     # Si le nombre d'essais est supérieur ou égal à 15, le jeu est fini par une défaite
-    if(self.currentLine >= 15):
+    if(len(self.lines) > 15):
         self.isGameEnd = True
         self.win = False
         self.currentScreen = 'end_screen'
@@ -87,7 +95,6 @@ class gameState:
             self.isGameEnd = False
             self.win = False
 
-            self.currentLine += 1
             self.lines.append([])
             return
         i += 1
