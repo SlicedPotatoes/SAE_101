@@ -1,13 +1,18 @@
 import pygame
+import ui.spriteLoader as sl
 
 from random import *
 
 class gameState:
-  def __init__(self, colors, sc):
+  def __init__(self, colors:list, sc:sl.sprite_collection)->None:
+    self.running = True
+    self.font = "VCRosdNEUE.ttf"
+
     # Données relatives a l'affichage
     self.currentScreen = 'main_menu'
     self.screen = pygame.display.set_mode((1280, 720))
     self.currentBackgroundIndex = 0
+    self.currentChatIndex = 0
 
     # Données statiques relatives au jeu
     self.colors = colors
@@ -20,7 +25,7 @@ class gameState:
     self.lines = [[]]
   
   # Méthode pour reset l'état du jeu
-  def reset(self, screen_name):
+  def reset(self, screen_name:str)->None:
      self.currentScreen = screen_name
      self.isGameEnd = False
      self.win = False
@@ -28,7 +33,7 @@ class gameState:
      self.lines = [[]]
 
   # Méthode pour générer le secret
-  def genSecret(self):
+  def genSecret(self)->list:
     arr = []
 
     for i in range(5):
@@ -37,7 +42,7 @@ class gameState:
     return arr
 
   # Méthode de feedback pour une proposition
-  def feedback(self, row):
+  def feedback(self, row:int)->tuple:
     i = 0
 
     wellPlaced = 0 # Compteur pour les couleurs bien placées
@@ -75,7 +80,7 @@ class gameState:
     return (wellPlaced, goodColor)
 
   # Méthode éxécutée à chaque frame pour mettre à jour gameState
-  def update(self):
+  def update(self)->None:
     # Si le nombre d'essais est supérieur ou égal à 15, le jeu est fini par une défaite
     if(len(self.lines) > 15):
         self.isGameEnd = True

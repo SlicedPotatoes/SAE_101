@@ -9,10 +9,9 @@ sprite_collection = sl.sprite_collection()
 
 pygame.init()
 pygame.display.set_caption('Mastermind')
-#pygame.display.set_icon(sprite_collection.s['icon'])
+pygame.display.set_icon(sprite_collection.s['icon'])
 
 clock = pygame.time.Clock()
-running = True
 
 # Mastermind logic setup
 colors = [
@@ -28,17 +27,18 @@ colors = [
 gameState = gs.gameState(colors, sprite_collection)
 
 # Main loop
-while running:
+while gameState.running:
   gameState.update()
   
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
-      running = False
+      gameState.running = False
     elif event.type == pygame.MOUSEBUTTONUP:
       eh.mouse_click(gameState)
 
   df.drawBackground(gameState)
 
+  # Afficher le bon écran
   if gameState.currentScreen == 'main_menu':
     df.mainMenu(gameState)
   elif gameState.currentScreen == 'game_screen':
@@ -46,6 +46,8 @@ while running:
   elif gameState.currentScreen == 'end_screen':
     df.gameScreen(gameState, True)
     df.endGameModal(gameState)
+  elif gameState.currentScreen == 'credits_screen':
+    df.creditsScreen(gameState)
   else:
     print("Error: Screen not found")
     gameState.reset('main_menu')
