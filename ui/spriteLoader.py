@@ -70,14 +70,14 @@ class sprite_collection:
       'sprite_colors_picker_hover': 'game_screen\\colors_picker_hover.png'
     }
 
-    # Dictionnaire permettant d'accédé a partir d'une clé a un object Surface (affichable dans pygame)
+    # Dictionnaire permettant d'accéder à partir d'une clé à un object Surface (affichable dans pygame)
     self.s = {}
     # Remplir le dictionnaire ci-dessus
     for s in hashmap.items():
       self.s[s[0]] = pygame.image.load(root + s[1])
 
     i = 1
-    # List qui contient les frames du background animée
+    # List qui contient les frames du background animé
     self.background = []
 
     while(i <= 54):
@@ -87,7 +87,7 @@ class sprite_collection:
       self.background.append(pygame.image.load(root + "background\\frame-" + numStr + ".png"))
 
     i = 0
-    # List qui contient les frames du jolie chat sur l'ecran du jeu
+    # List qui contient les frames du joli chat sur l'écran du jeu
     self.chat = []
     # Remplir la liste ci-dessus
     while(i <= 10):

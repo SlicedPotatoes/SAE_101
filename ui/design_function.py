@@ -4,7 +4,7 @@ import gameState as gs
 import utils
 
 """
-Variable globale lié a l'affichage
+Variables globales liées à l'affichage
 """
 screen_size = (1280, 720)
 
@@ -44,7 +44,7 @@ btn_restart_center_es_win = (screen_size[0] // 2, screen_size[1] // 2 + 155)
 Fonction d'affichage des différents écrans
 """
 
-# Affiche le background animée
+# Affiche le background animé
 def drawBackground(gameState:gs.gameState)->None:
   gameState.screen.blit(gameState.sc.background[gameState.currentBackgroundIndex], (0, 0))
   gameState.currentBackgroundIndex = (gameState.currentBackgroundIndex + 1) % len(gameState.sc.background)
@@ -168,7 +168,7 @@ def endGameModal(gameState:gs.gameState)->None:
   drawBtnReset(pos, gameState.win)
 
 """
-Sous probleme des fonction d'affichage des différents écrants
+Sous-problèmes des fonctions d'affichage des différents écrans
 """
 
 # Dessiner une couleur dans le plateau
@@ -180,7 +180,7 @@ def showBoard(f:pygame.Surface, sc:sl.sprite_collection)->None:
   cord = utils.getHitboxRect((screen_size[0] // 2, screen_size[1] // 2), background_board_size)
   pygame.draw.rect(f, (192, 185, 245), [cord[0] - 20, cord[2] + 20, background_board_size[0], background_board_size[1]])
 
-  # Affichage des cases pour la combinaison secrete
+  # Affichage des cases pour la combinaison secrète
   for col in range(5):
     f.blit(sc.s['sprite_case_color'], (board_offset_x + 40 * col, board_offset_y))
 
@@ -190,7 +190,7 @@ def showBoard(f:pygame.Surface, sc:sl.sprite_collection)->None:
       f.blit(sc.s['sprite_case_color'], (board_offset_x + 40 * col, board_offset_y + 60 + 40 * row)) # Case proposition joueur
     f.blit(sc.s['sprite_case_feedback'], (board_offset_x + 220, board_offset_y + 60 + 40 * row))  # Case feedback
 
-# Afficher les buttons de choix de couleur
+# Afficher les boutons de choix de couleurs
 def showColorPicker(gameState:gs.gameState)->None:
   def drawBtnRemove(pos:tuple):
     hitbox = utils.getHitboxRect(btn_remove_center, btn_remove_size)
@@ -204,7 +204,7 @@ def showColorPicker(gameState:gs.gameState)->None:
 
   gameState.screen.blit(gameState.sc.s['sprite_background_colors_picker'], [color_picker_offset_x - 13, color_picker_offset_y - 11])
 
-  # Button choix couleur
+  # Bouton choix couleur
   for i in range(len(gameState.colors)):
      gameState.screen.blit(gameState.sc.s[gameState.colors[i]], [color_picker_offset_x, color_picker_offset_y + 40 * i])
 
@@ -246,7 +246,7 @@ def showFeedback(f:pygame.Surface, sc:sl.sprite_collection, row:int, res:int)->N
     i = i + 1
     j = j + 1
 
-# Afficher les regles
+# Afficher les règles
 def showRules(f:pygame.Surface, sc:sl.sprite_collection)->None:
   hitbox = utils.getHitboxRect(rules_center, rules_size)
   f.blit(sc.s['sprite_rules'], (hitbox[0], hitbox[2]))

@@ -3,7 +3,7 @@ import gameState as gs
 import utils
 import ui.design_function as df
 
-# Gestion des clicks en fonction de l'écran actuellement afficher
+# Gestion des clicks en fonction de l'écran actuellement affiché
 def mouse_click(gameState: gs.gameState)->None:
   if(gameState.currentScreen == 'main_menu'):
     mainMenuClick(gameState)
@@ -16,11 +16,11 @@ def mouse_click(gameState: gs.gameState)->None:
   else:
     print("Problème avec currentScreen:", gameState.currentScreen)
 
-# Gestion des clicks sur l'ecran principal
+# Gestion des clicks sur l'écran principal
 def mainMenuClick(gameState:gs.gameState)->None:
   pos = pygame.mouse.get_pos()
 
-  # Récuperer les hitbox des différents bouton
+  # Récuperer les hitbox des différents boutons
   play_btn_hitbox = utils.getHitboxRect(df.btn_play_center, df.btn_play_size)
   credit_btn_hitbox = utils.getHitboxRect(df.btn_credit_center, df.btn_credit_size)
   quit_btn_hitbox = utils.getHitboxRect(df.btn_quit_center, df.btn_quit_size)
@@ -72,7 +72,7 @@ def gameEndClick(gameState:gs.gameState)->None:
   if(utils.inRectHitbox(pos, restart_btn_hitbox)):
     gameState.reset('game_screen')
 
-# Gestion des clicks de l'ecran credits
+# Gestion des clicks de l'écran credits
 def creditsClick(gameState:gs.gameState)->None:
   pos = pygame.mouse.get_pos()
   return_btn_hitbox = utils.getHitboxRect(df.btn_return_center, df.btn_return_size)

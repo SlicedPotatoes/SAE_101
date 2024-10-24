@@ -79,7 +79,7 @@ class gameState:
 
     return (wellPlaced, goodColor)
 
-  # Méthode éxécutée à chaque frame pour mettre à jour gameState
+  # Méthode exécutée à chaque frame pour mettre à jour gameState
   def update(self)->None:
     # Si le nombre d'essais est supérieur ou égal à 15, le jeu est fini par une défaite
     if(len(self.lines) > 15):
@@ -87,7 +87,7 @@ class gameState:
         self.win = False
         self.currentScreen = 'end_screen'
     
-    # Si la proposition n'est pas complete on n'a pas besoin d'éxécuté le code qui suit
+    # Si la proposition n'est pas complète on n'a pas besoin d'exécuté le code qui suit
     if(len(self.lines[-1]) != 5):
       return
 
